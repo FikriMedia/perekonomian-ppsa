@@ -42,14 +42,14 @@ Laravel 11 sudah melewati masa dukungan keamanannya (berakhir 12 Maret 2026). Ka
 
 | Bagian | File |
 |---|---|
-| Migration (6 tabel) | `database/migrations/2026_09_13_00000{1-6}_*.php` |
-| Model + relasi | `app/Models/{Pengaturan,Unit,Produk,Cabang,Mitra,Ulasan}.php` |
-| Controller publik | `app/Http/Controllers/LandingPageController.php` (`index`, `storeUlasan`) |
-| Controller admin | `app/Http/Controllers/Admin/*Controller.php` (store/update/destroy per tabel) |
+| Migration (9 tabel/kolom) | `database/migrations/2026_09_13_00000{1-9}_*.php` |
+| Model + relasi | `app/Models/{Pengaturan,Unit,Produk,Cabang,Mitra,Ulasan,Berita,FotoTentang}.php` |
+| Controller publik | `app/Http/Controllers/LandingPageController.php` (`index`, `storeUlasan`), `app/Http/Controllers/BeritaController.php` (`index`, `show`) |
+| Controller admin | `app/Http/Controllers/Admin/*Controller.php` (Pengaturan, LatarHero, LogoHero, Unit, Produk, Cabang, Mitra, Berita, Tentang, Ulasan) |
 | Validasi | `app/Http/Requests/*Request.php` |
 | Rate limit ulasan (3/jam per IP) | `app/Providers/AppServiceProvider.php` |
 | Routes | `routes/web.php` |
-| Halaman | `resources/views/welcome.blade.php` |
+| Halaman | `resources/views/welcome.blade.php`, `resources/views/berita/{index,show}.blade.php` |
 | Komponen | `resources/views/components/{modal,modal-aksi,field-error,produk-grid,ikon}.blade.php` |
 | Login admin | `app/Http/Controllers/AuthController.php`, `resources/views/auth/login.blade.php` |
 | Logo (sudah dikecilkan untuk web) | `public/images/logo/*.png` |
@@ -67,6 +67,7 @@ Laravel 11 sudah melewati masa dukungan keamanannya (berakhir 12 Maret 2026). Ka
 ## Yang perlu disesuaikan sebelum rilis
 
 - Seeder membuat 6 unit usaha: Restoran Abdussalam, Salam Coffee, Salam Bakery, Airsa, Toserba Abdussalam, Torasera. Produk, harga, nomor WhatsApp `081234567890`, alamat cabang, dan ulasan "Pengunjung Contoh" hanyalah placeholder.
+- `BeritaContohSeeder` menambahkan beberapa berita contoh. Hapus atau ganti isinya sebelum rilis.
 - Mitra tidak di-seed. Section Mitra baru tampil untuk pengunjung setelah admin menambahkan minimal satu mitra.
 - Logo unit dicocokkan dari nama unit (`Unit::LOGO`), karena tabel `units` tidak punya kolom logo. Nama unit harus tetap mengandung kata kunci `resto`, `coffee`/`kopi`, `bakery`/`roti`, `airsa`, `toserba`, atau `torasera`.
 - Tailwind dimuat dari Play CDN sesuai permintaan. Untuk produksi, sebaiknya dikompilasi lewat Vite agar lebih ringan.
